@@ -119,6 +119,13 @@ h1 { font-family: var(--display); font-size: 34px; font-weight: 700; letter-spac
 .role-card input:checked ~ .role-card-inner { border-color: var(--blue); background: var(--blue-soft); box-shadow: 0 0 0 1px var(--blue); }
 .role-card input:checked ~ .role-card-inner .role-icon-wrap { background: var(--blue); color: var(--bg); }
 .role-card input:checked ~ .role-card-inner .role-tag { color: var(--blue); }
+.jd-link {
+  display: inline-block; margin-top: 10px;
+  font-size: 11px; color: var(--text-3);
+  text-decoration: none; transition: color 0.15s;
+}
+.jd-link:hover { color: var(--blue); }
+.role-card input:checked ~ .role-card-inner .jd-link { color: var(--blue); }
 .role-icon-wrap {
   width: 36px; height: 36px; border-radius: 4px;
   background: var(--bg-surface);
@@ -292,6 +299,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
             <div class="role-icon-wrap">✦</div>
             <div class="role-title">UI/UX Intern</div>
             <div class="role-tag">// design &middot; figma &middot; research</div>
+            <a href="https://docs.google.com/document/d/13rEKY8jeFZo1Hlhb3FxAV8Rvd5P_c-eU/edit?usp=sharing&ouid=108609660970855952639&rtpof=true&sd=true" target="_blank" class="jd-link" onclick="event.stopPropagation()">view job description →</a>
           </div>
         </label>
         <label class="role-card">
@@ -300,6 +308,7 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
             <div class="role-icon-wrap">▶</div>
             <div class="role-title">Video Editor Intern</div>
             <div class="role-tag">// editing &middot; motion &middot; storytelling</div>
+            <a href="https://docs.google.com/document/d/1NioSXdGuygffTnEd2lok-JscgjCxwakR/edit?usp=sharing&ouid=108609660970855952639&rtpof=true&sd=true" target="_blank" class="jd-link" onclick="event.stopPropagation()">view job description →</a>
           </div>
         </label>
       </div>
