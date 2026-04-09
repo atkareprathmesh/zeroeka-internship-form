@@ -616,6 +616,9 @@ document.getElementById('appForm').addEventListener('submit', async function(e) 
     }
   });
 
+  // Prefix phone with a tab so Google Sheets doesn't parse +91 as a formula
+  if (data.phone) data.phone = '\t' + data.phone.trim();
+
   // UI state — loading
   const btn = document.getElementById('submitBtn');
   const btnText = document.getElementById('btnText');
