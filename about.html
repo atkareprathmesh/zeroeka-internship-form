@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What We're Building — ZeroEka</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111118;
+  --bg-card: #1a1a26;
+  --bg-surface: #1e1e2e;
+  --bg-inset: #252538;
+  --border: #32324a;
+  --border-subtle: #26263a;
+  --text-1: #eaecf4;
+  --text-2: #b2b4cc;
+  --text-3: #80829a;
+  --text-4: #50526a;
+  --blue: #5b9cf6;
+  --blue-glow: rgba(91,156,246,0.15);
+  --blue-soft: #141c30;
+  --green: #5ecc7a;
+  --green-soft: #0e2016;
+  --mauve: #b080f0;
+  --teal: #50c8d0;
+  --yellow: #d8b840;
+  --red: #e86070;
+  --grid: rgba(255,255,255,0.022);
+  --display: 'Space Grotesk', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 31px,var(--grid) 31px,var(--grid) 32px),
+    repeating-linear-gradient(90deg,transparent,transparent 31px,var(--grid) 31px,var(--grid) 32px);
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 14px 32px;
+  background: rgba(17,17,24,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.nav-brand span { color: var(--blue); }
+
+.nav-tag {
+  font-size: 11px;
+  color: var(--text-4);
+}
+
+/* HERO */
+.hero {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 120px 32px 64px;
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; color: var(--text-4);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 5px 12px;
+  margin-bottom: 28px;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 6px var(--blue);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.accent { color: var(--blue); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.8;
+  max-width: 580px;
+  margin-bottom: 36px;
+}
+
+.hero-stats {
+  display: flex; gap: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 560px;
+  margin-bottom: 64px;
+}
+
+.hero-stat {
+  flex: 1;
+  padding: 16px 20px;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.hero-stat:last-child { border-right: none; }
+
+.stat-n {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 700;
+  display: block;
+}
+
+.stat-l {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+/* SECTIONS */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+
+.section { padding: 56px 0; border-top: 1px solid var(--border-subtle); }
+
+.section-tag {
+  font-size: 11px;
+  color: var(--text-4);
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.body-text {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.75;
+}
+
+/* PROBLEM / SOLUTION */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 20px 22px;
+}
+
+.card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.tag-red { background: rgba(232,96,112,0.1); color: var(--red); border: 1px solid rgba(232,96,112,0.2); }
+.tag-blue { background: var(--blue-soft); color: var(--blue); border: 1px solid rgba(91,156,246,0.2); }
+
+.bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+.bullet-list li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13px; color: var(--text-2); line-height: 1.55;
+}
+
+.bullet-list li::before {
+  content: '//';
+  font-size: 10px;
+  color: var(--text-4);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* HOW IT WORKS */
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+
+.step {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-num {
+  font-family: var(--display);
+  font-size: 48px;
+  font-weight: 700;
+  opacity: 0.07;
+  position: absolute;
+  top: 8px; right: 12px;
+  line-height: 1;
+}
+
+.step-icon {
+  font-size: 20px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* MODALITIES */
+.modality-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.modality {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--text-2);
+}
+
+.modality-icon { font-size: 16px; }
+
+/* MARKET */
+.market-strip {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+}
+
+.market-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.market-n {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--blue);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.market-l { font-size: 11px; color: var(--text-3); }
+
+/* WHO WE ARE */
+.founders { display: flex; gap: 10px; }
+
+.founder-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 16px 18px;
+}
+
+.founder-name {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.founder-tag {
+  font-size: 11px;
+  color: var(--text-4);
+}
+
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  color: var(--text-3);
+}
+
+/* INSIGHT QUOTE */
+.insight {
+  border-left: 3px solid var(--blue);
+  padding: 16px 20px;
+  background: var(--blue-glow);
+  border-radius: 0 5px 5px 0;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin: 24px 0;
+  font-style: italic;
+}
+
+/* CTA */
+.cta-block {
+  text-align: center;
+  padding: 64px 32px 80px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.cta-block p {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px;
+  background: var(--blue);
+  color: var(--bg);
+  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.85; }
+
+@media (max-width: 640px) {
+  h1 { font-size: 32px; }
+  .two-col, .steps, .modality-grid, .market-strip, .founders { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Zero<span>Eka</span></div>
+  <span class="nav-tag">// adaptive intelligence for personalised learning</span>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    // what we're building
+  </div>
+  <h1>information that<br><span class="accent">adapts to you.</span></h1>
+  <p class="hero-sub">
+    ZeroEka is an AI-native adaptive intelligence layer that reshapes learning around each individual — tracking attention, retention, and knowledge gaps in real time so every learner achieves maximum outcome with minimum wasted effort.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="stat-n" style="color:var(--green)">9</span>
+      <span class="stat-l">content modalities</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-n" style="color:var(--mauve)">22</span>
+      <span class="stat-l">Indian languages</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-n" style="color:var(--blue)">84%</span>
+      <span class="stat-l">higher retention</span>
+    </div>
+    <div class="hero-stat">
+      <span class="stat-n" style="color:var(--yellow)">254M</span>
+      <span class="stat-l">students in India</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <p class="section-tag">// the problem</p>
+    <h2>learning is <span class="accent">broken.</span></h2>
+    <p class="body-text" style="margin-bottom:20px;max-width:560px">Every existing edtech platform builds content for the masses — one educator teaching many. Nobody adapts to the individual.</p>
+    <div class="two-col">
+      <div class="card">
+        <span class="card-tag tag-red">FOR LEARNERS</span>
+        <ul class="bullet-list">
+          <li>Same content, same pace for everyone</li>
+          <li>No real-time knowledge gap detection</li>
+          <li>No understanding of attention or behaviour</li>
+          <li>Passive learning, zero engagement</li>
+          <li>High effort, low retention — effort ≠ outcome</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-red">FOR ENTERPRISES</span>
+        <ul class="bullet-list">
+          <li>Fragmented, one-size-fits-all training systems</li>
+          <li>No infrastructure for personalisation at scale</li>
+          <li>Limited visibility into skill gaps</li>
+          <li>Manual workflows across content & evaluation</li>
+          <li>Security risks with external AI tools</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight">
+      "The bottleneck isn't content — it's understanding the learner. Information today is static. Humans are not."
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="section">
+    <p class="section-tag">// the solution</p>
+    <h2>we made information <span class="accent">adaptive.</span></h2>
+    <p class="body-text" style="margin-bottom:24px;max-width:580px">ZeroEka is not another edtech platform. We are building the adaptive intelligence layer — the system that understands each user and reshapes information around them in real time.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <span class="step-icon">◉</span>
+        <h3>we detect</h3>
+        <p class="body-text" style="font-size:12px">Attention span, retention rate, drop-off patterns, and struggle points — tracked continuously as you learn.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <span class="step-icon">⟳</span>
+        <h3>we adapt</h3>
+        <p class="body-text" style="font-size:12px">Content format, difficulty, pacing, and language shift automatically. No two learners follow the same path.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <span class="step-icon">✦</span>
+        <h3>you ace it</h3>
+        <p class="body-text" style="font-size:12px">Maximum scores, minimum wasted effort. The system ensures actual learning — not passive watching.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALITIES -->
+  <div class="section">
+    <p class="section-tag">// 9 content modalities</p>
+    <h2>whatever format <span class="accent">works for you.</span></h2>
+    <p class="body-text" style="margin-bottom:20px;max-width:520px">The engine routes each learner across formats based on live signals. A visual learner gets a video. A quiz-driven learner gets interactive questions. A struggling learner gets a game.</p>
+    <div class="modality-grid">
+      <div class="modality"><span class="modality-icon">▶</span> Video lessons</div>
+      <div class="modality"><span class="modality-icon">✦</span> Interactive quizzes</div>
+      <div class="modality"><span class="modality-icon">◈</span> Playable games</div>
+      <div class="modality"><span class="modality-icon">◻</span> Comic strips</div>
+      <div class="modality"><span class="modality-icon">◎</span> 2D / 3D animations</div>
+      <div class="modality"><span class="modality-icon">≡</span> Smart notes canvas</div>
+      <div class="modality"><span class="modality-icon">◈</span> Audio explanations</div>
+      <div class="modality"><span class="modality-icon">⬡</span> AI avatar tutor</div>
+      <div class="modality"><span class="modality-icon">◌</span> Revision modules</div>
+    </div>
+  </div>
+
+  <!-- MARKET -->
+  <div class="section">
+    <p class="section-tag">// the opportunity</p>
+    <h2>a $300B+ market <span class="accent">built for this moment.</span></h2>
+    <p class="body-text" style="margin-bottom:20px;max-width:540px">India alone has 254M K-12 students, 54,000 colleges, and 50,000+ enterprises needing L&D. NEP 2020 mandates personalised, multilingual, competency-based learning — institutional adoption is now policy.</p>
+    <div class="market-strip">
+      <div class="market-card">
+        <span class="market-n">$187B+</span>
+        <span class="market-l">TAM globally (2025)</span>
+      </div>
+      <div class="market-card">
+        <span class="market-n">$8B+</span>
+        <span class="market-l">India SAM today</span>
+      </div>
+      <div class="market-card">
+        <span class="market-n">35–43%</span>
+        <span class="market-l">AI in EdTech CAGR</span>
+      </div>
+      <div class="market-card">
+        <span class="market-n">$70M</span>
+        <span class="market-l">ARR target by Year 5</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO WE ARE -->
+  <div class="section">
+    <p class="section-tag">// the team</p>
+    <h2>built at IIT Madras. <span class="accent">building for the world.</span></h2>
+    <p class="body-text" style="margin-bottom:20px;max-width:500px">Three third-year undergraduates from IIT Madras, incubated at Nirmaan — building the infrastructure layer that the world's learning platforms will eventually run on.</p>
+    <div class="founders">
+      <div class="founder-card">
+        <div class="founder-name">Prathmesh Aatkare</div>
+        <div class="founder-tag">// co-founder · iit madras</div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-name">Saurav Singh</div>
+        <div class="founder-tag">// co-founder · iit madras</div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-name">Saharsh Jain</div>
+        <div class="founder-tag">// co-founder · iit madras</div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge">◈ Nirmaan, IIT Madras</span>
+      <span class="badge">◈ BMW Techworks India — Grant</span>
+      <span class="badge">◈ Google for Startups</span>
+      <span class="badge">◈ AWS Activate — $25K credits</span>
+      <span class="badge">◈ Pre-seed: INR 7L @ 1% equity</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-block">
+  <p class="section-tag" style="margin-bottom:12px">// interested in joining?</p>
+  <h2 style="font-size:28px;margin-bottom:8px">apply for an internship.</h2>
+  <p>ui/ux intern · video editor intern · incubated at iit madras</p>
+  <a class="btn" href="ZeroEka_Intern_Application.html">apply now →</a>
+  <p style="margin-top:20px;font-size:11px;color:var(--text-4)">
+    questions? write to us at support@zeroeka.com &nbsp;·&nbsp; zeroeka.com
+  </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZeroEka — Intern Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111118;
+  --bg-card: #1a1a26;
+  --bg-surface: #222232;
+  --bg-inset: #2a2a3c;
+  --border: #3a3a52;
+  --border-subtle: #2e2e44;
+  --text-1: #e6e8f0;
+  --text-2: #b8bace;
+  --text-3: #8a8ca4;
+  --text-4: #5a5c72;
+  --blue: #6a9ff8;
+  --blue-deep: #1e55d0;
+  --blue-soft: #18203a;
+  --blue-mid: #5080e0;
+  --green: #6ad080;
+  --green-soft: #122a18;
+  --yellow: #e8c050;
+  --red: #f07080;
+  --red-soft: #2e1018;
+  --mauve: #b888f0;
+  --mauve-soft: #1c1230;
+  --teal: #60d0d8;
+  --grid: rgba(255,255,255,0.025);
+  --display: 'Space Grotesk', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 31px,var(--grid) 31px,var(--grid) 32px),
+    repeating-linear-gradient(90deg,transparent,transparent 31px,var(--grid) 31px,var(--grid) 32px);
+}
+
+.page-wrap { max-width: 680px; margin: 0 auto; padding: 60px 24px 80px; }
+
+/* HEADER */
+.brand-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue); box-shadow: 0 0 8px var(--blue);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.brand-name { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; color: var(--text-3); }
+
+.comment { font-size: 12px; color: var(--text-4); margin-bottom: 12px; }
+
+h1 { font-family: var(--display); font-size: 34px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.1; margin-bottom: 14px; }
+.accent { color: var(--blue); }
+
+.subtitle { font-size: 14px; color: var(--text-2); line-height: 1.75; max-width: 520px; margin-bottom: 16px; }
+
+/* WHAT WE BUILD banner */
+.learn-more-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--blue-soft);
+  border: 1px solid rgba(106,159,248,0.2);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 28px;
+  gap: 12px;
+}
+
+.learn-more-text { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.learn-more-text strong { color: var(--text-1); display: block; margin-bottom: 2px; font-family: var(--display); }
+
+.learn-more-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue);
+  color: var(--bg);
+  border-radius: 4px;
+  padding: 7px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.learn-more-btn:hover { opacity: 0.85; }
+
+.header-divider { height: 1px; background: var(--border-subtle); margin-bottom: 32px; }
+
+/* ROLE SELECTOR */
+.role-label { font-size: 11px; font-weight: 700; color: var(--text-4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 36px; }
+
+.role-card { position: relative; cursor: pointer; }
+.role-card input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.role-card-inner {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  background: var(--bg-card);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.role-card:hover .role-card-inner { border-color: var(--blue); background: var(--blue-soft); }
+.role-card input:checked ~ .role-card-inner { border-color: var(--blue); background: var(--blue-soft); box-shadow: 0 0 0 1px var(--blue); }
+.role-card input:checked ~ .role-card-inner .role-icon-wrap { background: var(--blue); color: var(--bg); }
+.role-card input:checked ~ .role-card-inner .role-tag { color: var(--blue); }
+.role-icon-wrap {
+  width: 36px; height: 36px; border-radius: 4px;
+  background: var(--bg-surface);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px; font-size: 16px; transition: all 0.2s;
+}
+.role-title { font-family: var(--display); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.role-tag { font-size: 11px; color: var(--text-4); transition: color 0.2s; }
+
+/* FORM */
+.form-section { margin-bottom: 28px; }
+.section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle); }
+.section-num { font-size: 11px; font-weight: 700; color: var(--blue); background: var(--blue-soft); border: 1px solid rgba(106,159,248,0.2); border-radius: 3px; padding: 2px 8px; }
+.section-title { font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--text-1); }
+
+.field-group { margin-bottom: 16px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+label { display: block; font-size: 12px; font-weight: 700; color: var(--text-3); margin-bottom: 6px; letter-spacing: 0.3px; }
+label span.req { color: var(--red); margin-left: 3px; }
+
+input[type="text"], input[type="email"], input[type="url"], input[type="tel"], select, textarea {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-1);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+  appearance: none; -webkit-appearance: none;
+}
+input::placeholder, textarea::placeholder { color: var(--text-4); }
+input:focus, select:focus, textarea:focus { border-color: var(--blue); background: var(--blue-soft); }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a5c72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; cursor: pointer;
+}
+select option { background: var(--bg-card); }
+textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+/* CHECKBOXES */
+.checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.check-item {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; padding: 8px 12px;
+  border-radius: 4px; border: 1.5px solid var(--border);
+  background: var(--bg-surface); transition: all 0.15s;
+  font-size: 12px; color: var(--text-2);
+}
+.check-item:hover { border-color: var(--blue); color: var(--text-1); }
+.check-item input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--blue); cursor: pointer; }
+
+/* PILLS */
+.pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.pill-option { position: relative; }
+.pill-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+.pill-label {
+  display: inline-flex; align-items: center;
+  padding: 6px 14px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  font-size: 12px; cursor: pointer; transition: all 0.15s;
+  color: var(--text-2); background: var(--bg-surface);
+}
+.pill-label:hover { border-color: var(--blue); color: var(--blue); }
+.pill-option input:checked ~ .pill-label { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); font-weight: 700; }
+
+/* NOTICE */
+.notice {
+  border-left: 3px solid var(--yellow);
+  background: rgba(232,192,80,0.06);
+  border-radius: 0 4px 4px 0;
+  padding: 12px 16px; font-size: 12px;
+  color: var(--text-2); line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* SUBMIT */
+.submit-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding-top: 24px; border-top: 1px solid var(--border-subtle);
+}
+.submit-note { font-size: 11px; color: var(--text-4); line-height: 1.5; }
+.btn-submit {
+  background: var(--blue); color: var(--bg); border: none; border-radius: var(--radius);
+  padding: 12px 28px; font-family: var(--mono); font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap; display: flex; align-items: center; gap: 8px;
+}
+.btn-submit:hover { opacity: 0.88; }
+.btn-submit:active { transform: scale(0.97); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* SPINNER */
+.spinner {
+  width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: var(--bg); border-radius: 50%;
+  animation: spin 0.6s linear infinite; display: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ERROR */
+.form-error {
+  display: none;
+  background: var(--red-soft);
+  border: 1px solid rgba(240,112,128,0.3);
+  border-radius: 5px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+/* SUCCESS */
+.success-state { display: none; text-align: center; padding: 60px 32px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; }
+.success-icon { font-size: 48px; margin-bottom: 16px; }
+.success-state h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+.success-state p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+
+@media (max-width: 560px) {
+  h1 { font-size: 26px; }
+  .role-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .checkbox-grid { grid-template-columns: 1fr; }
+  .submit-wrap { flex-direction: column; align-items: stretch; }
+  .btn-submit { justify-content: center; }
+  .learn-more-banner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <div style="margin-bottom:48px">
+    <div class="brand-tag">
+      <div class="brand-dot"></div>
+      <span class="brand-name">ZeroEka</span>
+    </div>
+    <p class="comment">// internship applications — open positions</p>
+    <h1>join the team.<br><span class="accent">build the future.</span></h1>
+    <p class="subtitle">
+      we're looking for sharp, driven people who want to work on real problems at the intersection of ai and education. incubated at iit madras.
+    </p>
+
+    <!-- WHAT WE BUILD BANNER -->
+    <div class="learn-more-banner">
+      <div class="learn-more-text">
+        <strong>not sure what we do?</strong>
+        read our 1-pager before applying — takes 2 minutes.
+      </div>
+      <a class="learn-more-btn" href="ZeroEka_WhatWeAreBuilding.html" target="_blank">
+        what we're building →
+      </a>
+    </div>
+
+    <div class="header-divider"></div>
+  </div>
+
+  <form id="appForm" novalidate>
+
+    <!-- ROLE -->
+    <div class="form-section">
+      <div class="role-label">// choose your role</div>
+      <div class="role-grid">
+        <label class="role-card">
+          <input type="radio" name="role" value="UI/UX Intern" required>
+          <div class="role-card-inner">
+            <div class="role-icon-wrap">✦</div>
+            <div class="role-title">UI/UX Intern</div>
+            <div class="role-tag">// design &middot; figma &middot; research</div>
+          </div>
+        </label>
+        <label class="role-card">
+          <input type="radio" name="role" value="Video Editor Intern">
+          <div class="role-card-inner">
+            <div class="role-icon-wrap">▶</div>
+            <div class="role-title">Video Editor Intern</div>
+            <div class="role-tag">// editing &middot; motion &middot; storytelling</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- 01 — PERSONAL -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">personal info</span>
+      </div>
+      <div class="field-row field-group">
+        <div class="field-group" style="margin-bottom:0">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" name="firstName" placeholder="Arjun" required>
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="lastName" placeholder="Sharma" required>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Email Address <span class="req">*</span></label>
+        <input type="email" name="email" placeholder="arjun@email.com" required>
+      </div>
+      <div class="field-row field-group">
+        <div class="field-group" style="margin-bottom:0">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="+91 98765 43210">
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <label>City / Location <span class="req">*</span></label>
+          <input type="text" name="location" placeholder="Chennai, India" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 — EDUCATION -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">education</span>
+      </div>
+      <div class="field-group">
+        <label>College / University <span class="req">*</span></label>
+        <input type="text" name="college" placeholder="IIT Madras" required>
+      </div>
+      <div class="field-row field-group">
+        <div class="field-group" style="margin-bottom:0">
+          <label>Degree &amp; Branch</label>
+          <input type="text" name="degree" placeholder="B.Tech Computer Science">
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <label>Expected Graduation</label>
+          <select name="gradYear">
+            <option value="" disabled selected>select year</option>
+            <option>2025</option><option>2026</option><option>2027</option><option>2028</option>
+            <option>Already Graduated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 UI/UX -->
+    <div class="form-section" id="sec-uiux" style="display:none">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">ui/ux — skills &amp; work</span>
+      </div>
+      <div class="field-group">
+        <label>Tools you use <span class="req">*</span></label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" name="tools" value="Figma"> Figma</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Adobe XD"> Adobe XD</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Sketch"> Sketch</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Framer"> Framer</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Protopie"> Protopie</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="HTML/CSS"> HTML / CSS</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="After Effects"> Lottie / After Effects</label>
+          <label class="check-item"><input type="checkbox" name="tools" value="Other"> Other</label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Portfolio / Behance / Dribbble URL <span class="req">*</span></label>
+        <input type="url" name="portfolio" placeholder="https://behance.net/yourname" required>
+      </div>
+      <div class="field-group">
+        <label>Design experience level</label>
+        <select name="designLevel">
+          <option value="" disabled selected>select level</option>
+          <option>Just starting out (&lt; 6 months)</option>
+          <option>Some experience (6–18 months)</option>
+          <option>Comfortable (18 months – 3 years)</option>
+          <option>Experienced (3+ years)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Describe a design problem you solved — or one you'd love to solve <span class="req">*</span></label>
+        <textarea name="designAnswer" placeholder="Tell us about a real challenge: what was broken, how you thought about it, what you shipped..." rows="5" required></textarea>
+      </div>
+    </div>
+
+    <!-- 03 VIDEO -->
+    <div class="form-section" id="sec-video" style="display:none">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">video editor — skills &amp; work</span>
+      </div>
+      <div class="field-group">
+        <label>Software you use <span class="req">*</span></label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" name="software" value="Premiere Pro"> Premiere Pro</label>
+          <label class="check-item"><input type="checkbox" name="software" value="After Effects"> After Effects</label>
+          <label class="check-item"><input type="checkbox" name="software" value="DaVinci Resolve"> DaVinci Resolve</label>
+          <label class="check-item"><input type="checkbox" name="software" value="Final Cut Pro"> Final Cut Pro</label>
+          <label class="check-item"><input type="checkbox" name="software" value="CapCut"> CapCut / mobile</label>
+          <label class="check-item"><input type="checkbox" name="software" value="Canva Video"> Canva Video</label>
+          <label class="check-item"><input type="checkbox" name="software" value="Motion Graphics"> Motion Graphics</label>
+          <label class="check-item"><input type="checkbox" name="software" value="Other"> Other</label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Portfolio / YouTube / Vimeo / Drive link <span class="req">*</span></label>
+        <input type="url" name="videoPortfolio" placeholder="https://youtube.com/@yourchannel" required>
+      </div>
+      <div class="field-group">
+        <label>Type of content you've edited</label>
+        <div class="checkbox-grid">
+          <label class="check-item"><input type="checkbox" name="contentType" value="Short-form"> Short-form / Reels</label>
+          <label class="check-item"><input type="checkbox" name="contentType" value="Educational"> Educational / explainers</label>
+          <label class="check-item"><input type="checkbox" name="contentType" value="Corporate"> Corporate / brand</label>
+          <label class="check-item"><input type="checkbox" name="contentType" value="Documentary"> Documentary / long-form</label>
+          <label class="check-item"><input type="checkbox" name="contentType" value="Motion"> Motion graphics</label>
+          <label class="check-item"><input type="checkbox" name="contentType" value="Social"> Social media</label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>What does a great educational video look like to you? <span class="req">*</span></label>
+        <textarea name="videoAnswer" placeholder="Walk us through your approach: pacing, storytelling, engagement hooks, visual style..." rows="5" required></textarea>
+      </div>
+    </div>
+
+    <!-- 04 — ABOUT -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">about you</span>
+      </div>
+      <div class="field-group">
+        <label>Why ZeroEka? What excites you about what we're building? <span class="req">*</span></label>
+        <textarea name="whyZeroeka" placeholder="Be honest. Generic answers don't land here." rows="4"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Availability</label>
+        <div class="pill-group">
+          <label class="pill-option"><input type="radio" name="availability" value="Full-time (40 hrs/week)"><span class="pill-label">Full-time (40 hrs/week)</span></label>
+          <label class="pill-option"><input type="radio" name="availability" value="Part-time (20 hrs/week)"><span class="pill-label">Part-time (20 hrs/week)</span></label>
+          <label class="pill-option"><input type="radio" name="availability" value="Flexible"><span class="pill-label">Flexible</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Internship duration you're open to</label>
+        <div class="pill-group">
+          <label class="pill-option"><input type="radio" name="duration" value="1–2 months"><span class="pill-label">1–2 months</span></label>
+          <label class="pill-option"><input type="radio" name="duration" value="3–6 months"><span class="pill-label">3–6 months</span></label>
+          <label class="pill-option"><input type="radio" name="duration" value="6 months+"><span class="pill-label">6 months+</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>When can you start?</label>
+        <div class="pill-group">
+          <label class="pill-option"><input type="radio" name="startDate" value="Immediately"><span class="pill-label">Immediately</span></label>
+          <label class="pill-option"><input type="radio" name="startDate" value="Within 2 weeks"><span class="pill-label">Within 2 weeks</span></label>
+          <label class="pill-option"><input type="radio" name="startDate" value="Within a month"><span class="pill-label">Within a month</span></label>
+          <label class="pill-option"><input type="radio" name="startDate" value="After a month"><span class="pill-label">After a month</span></label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Resume / CV Link <span class="req">*</span></label>
+        <input type="url" name="resume" placeholder="https://drive.google.com/file/..." required>
+      </div>
+      <div class="field-group">
+        <label>LinkedIn Profile</label>
+        <input type="url" name="linkedin" placeholder="https://linkedin.com/in/yourname">
+      </div>
+      <div class="field-group">
+        <label>Anything else you want us to know?</label>
+        <textarea name="extra" placeholder="Side projects, open source work, competitions, anything..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="notice">
+      // by submitting, you confirm this application is your own work. shortlisted candidates will be contacted within 5–7 working days. only shortlisted applicants will be reached out to.
+    </div>
+
+    <div class="form-error" id="formError"></div>
+
+    <div class="submit-wrap">
+      <div class="submit-note">
+        // zeroeka.com &middot; incubated at nirmaan, iit madras<br>
+        questions? <a href="mailto:support@zeroeka.com" style="color:var(--blue);text-decoration:none">support@zeroeka.com</a>
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">submit application →</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-state" id="successState">
+    <div class="success-icon">✦</div>
+    <h2>application <span class="accent">received.</span></h2>
+    <p>
+      thanks for applying to zeroeka.<br>
+      we review every application and will reach out<br>within 5–7 working days if you're shortlisted.<br><br>
+      <span style="color:var(--text-4);font-size:12px">// check your spam folder just in case · support@zeroeka.com</span>
+    </p>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────
+// STEP 1: Deploy ZeroEka_AppsScript.gs as a Google Apps Script
+//         web app, then paste the URL below.
+// STEP 2: That's it. The form will submit directly to your sheet.
+// ─────────────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzm5QWfZ43iaghEacld1xXvR8cwxExWvOasnL2sCKHM5sG4sxfk0WklP4Tqp4q4g_Rj/exec";
+
+// Role toggle
+document.querySelectorAll('input[name="role"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('sec-uiux').style.display = r.value === 'UI/UX Intern' ? 'block' : 'none';
+    document.getElementById('sec-video').style.display = r.value === 'Video Editor Intern' ? 'block' : 'none';
+  });
+});
+
+// Form submit
+document.getElementById('appForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const errorEl = document.getElementById('formError');
+  errorEl.style.display = 'none';
+
+  // Validate role
+  const role = document.querySelector('input[name="role"]:checked');
+  if (!role) {
+    errorEl.textContent = '// please select a role to apply for.';
+    errorEl.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  // Validate required fields (skip fields inside hidden role sections)
+  const required = this.querySelectorAll('[required]');
+  let missing = false;
+  required.forEach(el => {
+    const parentSection = el.closest('#sec-uiux, #sec-video');
+    if (parentSection && parentSection.style.display === 'none') {
+      el.style.borderColor = '';
+      return; // skip hidden section fields
+    }
+    if (!el.value.trim()) {
+      el.style.borderColor = 'var(--red)';
+      missing = true;
+    } else {
+      el.style.borderColor = '';
+    }
+  });
+
+  // Validate tool/software checkboxes for the visible role section
+  const roleVal = role.value;
+  if (roleVal === 'UI/UX Intern') {
+    const toolsChecked = this.querySelectorAll('input[name="tools"]:checked');
+    if (toolsChecked.length === 0) {
+      document.querySelector('input[name="tools"]').closest('.checkbox-grid').style.outline = '1.5px solid var(--red)';
+      missing = true;
+    } else {
+      document.querySelector('input[name="tools"]').closest('.checkbox-grid').style.outline = '';
+    }
+  }
+  if (roleVal === 'Video Editor Intern') {
+    const softwareChecked = this.querySelectorAll('input[name="software"]:checked');
+    if (softwareChecked.length === 0) {
+      document.querySelector('input[name="software"]').closest('.checkbox-grid').style.outline = '1.5px solid var(--red)';
+      missing = true;
+    } else {
+      document.querySelector('input[name="software"]').closest('.checkbox-grid').style.outline = '';
+    }
+  }
+
+  if (missing) {
+    errorEl.textContent = '// please fill in all required fields marked with *.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  // Collect form data
+  const data = {};
+  const formData = new FormData(this);
+  
+  // Handle checkboxes as arrays
+  const checkboxNames = ['tools', 'software', 'contentType'];
+  checkboxNames.forEach(name => {
+    data[name] = formData.getAll(name);
+  });
+
+  // Single values
+  formData.forEach((value, key) => {
+    if (!checkboxNames.includes(key)) {
+      data[key] = value;
+    }
+  });
+
+  // UI state — loading
+  const btn = document.getElementById('submitBtn');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('spinner');
+  btn.disabled = true;
+  btnText.textContent = 'submitting...';
+  spinner.style.display = 'block';
+
+  if (!SCRIPT_URL || SCRIPT_URL.includes("YOUR_APPS_SCRIPT")) {
+    // Dev fallback — show success without real submission
+    console.log("⚠️ No SCRIPT_URL set. Data that would be submitted:", data);
+    setTimeout(showSuccess, 800);
+    return;
+  }
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors' // Apps Script requires this
+    });
+    showSuccess();
+  } catch (err) {
+    btn.disabled = false;
+    btnText.textContent = 'submit application →';
+    spinner.style.display = 'none';
+    errorEl.textContent = '// submission failed. please email us directly at support@zeroeka.com';
+    errorEl.style.display = 'block';
+    console.error(err);
+  }
+});
+
+function showSuccess() {
+  document.getElementById('appForm').style.display = 'none';
+  const s = document.getElementById('successState');
+  s.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
